@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+
+<html lang="python" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lab Assignment 3 &#8212; ms-141-lab-3 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <script src="_static/documentation_options.js?v=61cf8be8"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome Lauren&#39;s documentation for Lab 3!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="Lab-Assignment-3">
+<h1>Lab Assignment 3<a class="headerlink" href="#Lab-Assignment-3" title="Link to this heading">¶</a></h1>
+<section id="Lauren-Illa">
+<h2>Lauren Illa<a class="headerlink" href="#Lauren-Illa" title="Link to this heading">¶</a></h2>
+</section>
+<section id="Due-by-Friday-April-24-at-11-am.-Submit-on-Canvas-as-instructed-by-the-TA.">
+<h2>Due by Friday April 24 at 11 am. Submit on Canvas as instructed by the TA.<a class="headerlink" href="#Due-by-Friday-April-24-at-11-am.-Submit-on-Canvas-as-instructed-by-the-TA." title="Link to this heading">¶</a></h2>
+</section>
+<section id="Collaboration-is-allowed-but-each-student-submits-their-own-solution.">
+<h2>Collaboration is allowed but each student submits their own solution.<a class="headerlink" href="#Collaboration-is-allowed-but-each-student-submits-their-own-solution." title="Link to this heading">¶</a></h2>
+<p>Write a Jupyter notebook with a solution to the following problems. It’s fine to work in groups, but each student should write the solution notebook independently.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+<section id="Problem-1">
+<h3>Problem 1<a class="headerlink" href="#Problem-1" title="Link to this heading">¶</a></h3>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">derivative</span></code> and <code class="docutils literal notranslate"><span class="pre">second_derivative</span></code> functions we wrote in class to compute the first and second derivatives of the function</p>
+<div class="math notranslate nohighlight">
+\[f(x) = e^x \cos(x)\]</div>
+<p>Compute the derivatives of <span class="math notranslate nohighlight">\(f(x)\)</span> by hand. Plot the formulas for <span class="math notranslate nohighlight">\(f'(x)\)</span> and <span class="math notranslate nohighlight">\(f''(x)\)</span> and compare to the numerical results in the interval <span class="math notranslate nohighlight">\(0 &lt; x &lt; 2\pi\)</span>. Comment briefly on the choice of step size and on the numerical error.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">derivative</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">method</span><span class="p">,</span><span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Compute the difference formula for f&#39;(x) with step size h.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    f : function</span>
+<span class="sd">        Array function of one variable</span>
+<span class="sd">    a : number</span>
+<span class="sd">        Compute derivative at x = a</span>
+<span class="sd">    method : string</span>
+<span class="sd">        Difference formula: &#39;forward&#39;, &#39;backward&#39; or &#39;central&#39;</span>
+<span class="sd">    h : number</span>
+<span class="sd">        Step size in difference formula. The default is h=0.01</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Difference formula at x=a:</span>
+<span class="sd">            central: f(a+h) - f(a-h))/2h</span>
+<span class="sd">            forward: f(a+h) - f(a))/h</span>
+<span class="sd">            backward: f(a) - f(a-h))/h</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;central&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span> <span class="o">-</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">h</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;forward&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span> <span class="o">-</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">))</span><span class="o">/</span><span class="n">h</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;backward&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">h</span><span class="p">))</span><span class="o">/</span><span class="n">h</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Method must be &#39;central&#39;, &#39;forward&#39; or &#39;backward&#39;.&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">second_derivative</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">h</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">h</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">h</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">))</span><span class="o">/</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">h</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">d1_exact</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">d2_exact</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">function</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s1">&#39;k-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;function&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">derivative</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;central&#39;</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span><span class="s1">&#39;r+&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;numpy first derivative&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">second_derivative</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span><span class="s1">&#39;b+&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;numpy second derivative&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">d1_exact</span><span class="p">,</span><span class="s1">&#39;r-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;exact first derivative&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">d2_exact</span><span class="p">,</span><span class="s1">&#39;b-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;exact second derivative&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$f(x) = e^</span><span class="si">{x}</span><span class="s1">cos(x)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/lauren-illa-lab-3-ms-141_4_0.png" src="_images/lauren-illa-lab-3-ms-141_4_0.png" />
+</div>
+</div>
+<p>I used the central difference thoerem to compute the first and second derivatives. This method is more accurate than the forward or backward methods, which have errors on the order of <span class="math notranslate nohighlight">\(\mathcal{O}(h)\)</span>, since first-order accurate methods have increasing errors when the curvature of the function is great. This error can be mitigated by reducing <span class="math notranslate nohighlight">\(h\)</span>. However, reducing <span class="math notranslate nohighlight">\(h\)</span> too much results in loss of precision due to round-off errors. Instead, I used the central difference method
+because it is a second-order accurate method (<span class="math notranslate nohighlight">\(\mathcal{O}(h^2)\)</span>) that allows the use of a larger value of <span class="math notranslate nohighlight">\(h\)</span>, which reduces computational costs without losing accuracy. The leading error term is <span class="math notranslate nohighlight">\(\frac{f'''(x)}{6}h^2\)</span>, so of order 2. Since the function is smooth in the interval, the third derivative is much less than the first derivative such that the leading error is very small in general.</p>
+</section>
+<section id="Problem-2">
+<h3>Problem 2<a class="headerlink" href="#Problem-2" title="Link to this heading">¶</a></h3>
+<p>Here are two integrals that quadrature methods may find challenging:</p>
+<div class="math notranslate nohighlight">
+\[I_1 = \int_0^{2\pi} \sin (100x)\,dx \,\,\,\,\,\, I_2 = \int_0^{2\pi}|\sin (100x)|^x\,dx\]</div>
+<ul class="simple">
+<li><p>Evaluate these integrals using at least two different quadrature methods, chosen among the midpoint, trapezoid and Simpson rules. Compare the answers and explain why the computer may have trouble with these integrals.</p></li>
+<li><p>Improve the calculation of the integrals with the Monte Carlo method, using importance sampling with the von Neumann rejection method (discussed, among other places, in chapter 5 of Landau’s book).</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Midpoint method</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">N</span> <span class="c1"># h=0.01</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">x_mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[:</span><span class="n">N</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span>
+
+<span class="n">y1_mid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">x_mid</span><span class="p">)</span>
+<span class="n">mid1_int</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y1_mid</span><span class="p">)</span><span class="o">*</span><span class="n">h</span> <span class="c1"># integral</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I_1 midpoint result = &#39;</span><span class="p">,</span> <span class="n">mid1_int</span><span class="p">)</span>
+
+<span class="c1"># exact result, error</span>
+<span class="n">exact_1</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># evaluated using mathematica</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I_1 exact result = &#39;</span><span class="p">,</span> <span class="n">exact_1</span><span class="p">)</span>
+<span class="n">mid1_error</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mid1_int</span> <span class="o">-</span> <span class="n">exact_1</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;I_1 error  = &#39;</span><span class="p">,</span> <span class="n">mid1_error</span><span class="p">)</span>
+
+<span class="n">y2_mid</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">x_mid</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="n">x_mid</span><span class="p">)</span>
+<span class="n">mid2_int</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y2_mid</span><span class="p">)</span><span class="o">*</span><span class="n">h</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I_2 midpoint result = &#39;</span><span class="p">,</span> <span class="n">mid2_int</span><span class="p">)</span>
+
+<span class="c1"># exact result, error</span>
+<span class="n">exact_2</span> <span class="o">=</span> <span class="mf">2.96756</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;I_2 exact result = &#39;</span><span class="p">,</span> <span class="n">exact_2</span><span class="p">)</span>
+<span class="n">mid2_error</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mid2_int</span> <span class="o">-</span> <span class="n">exact_2</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;I_2 error  = &#39;</span><span class="p">,</span> <span class="n">mid2_error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+I_1 midpoint result =  -9.764191778744848e-14
+I_1 exact result =  0
+I_1 error  =  9.764191778744848e-14
+I_2 midpoint result =  0.02299143829719014
+I_2 exact result =  2.96756
+I_2 error  =  2.94456856170281
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Trapezoid method</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">N</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># integrand</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Integral</span>
+<span class="n">trap1_int</span> <span class="o">=</span> <span class="p">(</span><span class="n">y1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">y1</span><span class="p">[</span><span class="n">N</span><span class="p">])</span><span class="o">*</span><span class="n">h</span> <span class="o">/</span> <span class="mf">2.0</span>
+<span class="c1"># and from the other points</span>
+<span class="n">trap1_int</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y1</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">N</span><span class="p">])</span><span class="o">*</span><span class="n">h</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;trapezoid result = &#39;</span><span class="p">,</span> <span class="n">trap1_int</span><span class="p">)</span>
+
+<span class="c1"># exact result, error (test as a function of N)</span>
+<span class="n">exact_1</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;exact result = &#39;</span><span class="p">,</span> <span class="n">exact_1</span><span class="p">)</span>
+<span class="n">trap1_error</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">trap1_int</span> <span class="o">-</span> <span class="n">exact_1</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;error  = &#39;</span><span class="p">,</span> <span class="n">trap1_error</span><span class="p">)</span>
+
+<span class="n">y2</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">x</span><span class="p">))</span><span class="o">**</span><span class="n">x</span>
+
+<span class="c1"># Integral</span>
+<span class="n">trap2_int</span> <span class="o">=</span> <span class="p">(</span><span class="n">y2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">y2</span><span class="p">[</span><span class="n">N</span><span class="p">])</span><span class="o">*</span><span class="n">h</span> <span class="o">/</span> <span class="mf">2.0</span>
+<span class="c1"># and from the other points</span>
+<span class="n">trap2_int</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y2</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">N</span><span class="p">])</span><span class="o">*</span><span class="n">h</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;trapezoid result = &#39;</span><span class="p">,</span> <span class="n">trap2_int</span><span class="p">)</span>
+
+<span class="c1"># exact result, error (test as a function of N)</span>
+<span class="n">exact_2</span> <span class="o">=</span> <span class="mf">2.96756</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;exact result = &#39;</span><span class="p">,</span> <span class="n">exact_2</span><span class="p">)</span>
+<span class="n">trap2_error</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">trap2_int</span> <span class="o">-</span> <span class="n">exact_2</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;error  = &#39;</span><span class="p">,</span> <span class="n">trap2_error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+trapezoid result =  8.550413541437844e-14
+exact result =  0
+error  =  8.550413541437844e-14
+trapezoid result =  0.03934128899578663
+exact result =  2.96756
+error  =  2.9282187110042135
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simpson&#39;s rule</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">101</span> <span class="c1"># an odd number of points</span>
+<span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># an even number of intervals of length h</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+
+<span class="c1"># weights</span>
+<span class="n">wend</span> <span class="o">=</span> <span class="n">h</span> <span class="o">/</span> <span class="mf">3.0</span>
+<span class="n">weven</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="n">h</span> <span class="o">/</span> <span class="mf">3.0</span>
+<span class="n">wodd</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">h</span> <span class="o">/</span> <span class="mf">3.0</span>
+
+<span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Integral - contributions from:</span>
+<span class="c1"># endpoints</span>
+<span class="n">sim1_int</span> <span class="o">=</span> <span class="p">(</span><span class="n">y1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">y1</span><span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">wend</span>
+
+<span class="c1"># even points (no endpoints)</span>
+<span class="n">sim1_int</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y1</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">N</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">weven</span>
+
+<span class="c1"># odd points (no endpoints)</span>
+<span class="n">sim1_int</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y1</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">wodd</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;I_1 Simpson result = &#39;</span><span class="p">,</span> <span class="n">sim1_int</span><span class="p">)</span>
+
+<span class="c1"># exact result, error (test as a function of N)</span>
+<span class="n">exact</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;I-1 exact result = &#39;</span><span class="p">,</span> <span class="n">exact</span><span class="p">)</span>
+<span class="n">sim1_error</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">sim1_int</span> <span class="o">-</span> <span class="n">exact</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;I_1 error  = &#39;</span><span class="p">,</span><span class="n">sim1_error</span><span class="p">)</span>
+
+<span class="n">y2</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">x</span><span class="p">))</span><span class="o">**</span><span class="n">x</span>
+
+<span class="c1"># Integral - contributions from:</span>
+<span class="c1"># endpoints</span>
+<span class="n">sim2_int</span> <span class="o">=</span> <span class="p">(</span><span class="n">y2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">y2</span><span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">wend</span>
+
+<span class="c1"># even points (no endpoints)</span>
+<span class="n">sim2_int</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y2</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">N</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">weven</span>
+
+<span class="c1"># odd points (no endpoints)</span>
+<span class="n">sim2_int</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y2</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">wodd</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;I_1 Simpson result = &#39;</span><span class="p">,</span> <span class="n">sim2_int</span><span class="p">)</span>
+
+<span class="c1"># exact result, error</span>
+<span class="n">exact</span> <span class="o">=</span> <span class="mf">2.96756</span> <span class="c1"># I used mathematica to find this</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;I-1 exact result = &#39;</span><span class="p">,</span> <span class="n">exact</span><span class="p">)</span>
+<span class="n">sim2_error</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">sim2_int</span> <span class="o">-</span> <span class="n">exact</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;I_1 error  = &#39;</span><span class="p">,</span> <span class="n">sim2_error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+I_1 Simpson result =  8.61552042006734e-14
+I-1 exact result =  0
+I_1 error  =  8.61552042006734e-14
+I_1 Simpson result =  0.030938484123546283
+I-1 exact result =  2.96756
+I_1 error  =  2.9366215158764537
+</pre></div></div>
+</div>
+<p>For the midpoint, trapezoidal, and Simposon’s rules, the error between the numerical integral and the exact integral for <span class="math notranslate nohighlight">\(I_1\)</span> was on the order of <span class="math notranslate nohighlight">\(10^{-14}\)</span>. For <span class="math notranslate nohighlight">\(I_2\)</span> using the same quadrature methods, the error was much greater (on the order of <span class="math notranslate nohighlight">\(10^0\)</span>). The error is much smaller for <span class="math notranslate nohighlight">\(I_1\)</span> than for <span class="math notranslate nohighlight">\(I_2\)</span> due to the higly oscillatory nature of the integrand of <span class="math notranslate nohighlight">\(I_2\)</span>. The origin symmetry of <span class="math notranslate nohighlight">\(I_1\)</span> and the less oscillatory nature of the function
+within the period results in the area being computationally less expensive to compute. Conversely, the exponential function <span class="math notranslate nohighlight">\(I_2\)</span> has higly oscillatory behavior. This makes using quadrature methods difficult since the number of points required to accurately calculate the integral is greater than the number of oscillations.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">montecarlo</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
+    <span class="c1"># array of N random points in (a,b)</span>
+    <span class="c1"># generate N uniformly distributed random points between (a,b)</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">a</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">R</span><span class="p">))</span><span class="o">*</span><span class="n">h</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f_1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">mc_int_1</span> <span class="o">=</span> <span class="n">montecarlo</span><span class="p">(</span><span class="n">f_1</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;I_1 Monte Carlo result = &#39;</span><span class="p">,</span> <span class="n">mc_int_1</span><span class="p">)</span>
+
+<span class="n">exact_1</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">mc_error_1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mc_int_1</span> <span class="o">-</span> <span class="n">exact_1</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;error  = &#39;</span><span class="p">,</span> <span class="n">mc_error_1</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">f_2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">x</span><span class="p">))</span><span class="o">**</span><span class="n">x</span>
+
+<span class="n">mc_int_2</span> <span class="o">=</span> <span class="n">montecarlo</span><span class="p">(</span><span class="n">f_2</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;I_2 Monte Carlo result = &#39;</span><span class="p">,</span> <span class="n">mc_int_2</span><span class="p">)</span>
+
+<span class="n">exact_2</span> <span class="o">=</span> <span class="mf">2.96756</span>
+<span class="n">mc_error_2</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mc_int_2</span> <span class="o">-</span> <span class="n">exact_2</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;error  = &#39;</span><span class="p">,</span> <span class="n">mc_error_2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+I_1 Monte Carlo result =  -0.2730458813581178
+error  =  0.2730458813581178
+I_2 Monte Carlo result =  2.9323608439486284
+error  =  0.035199156051371805
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">montecarlo_rejection</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="c1"># define amplitudes of the sin function</span>
+    <span class="n">y_min</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">y_max</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+
+    <span class="n">below_positive</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="n">above_negative</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+    <span class="c1"># points inside the boundary</span>
+    <span class="n">inside_count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">below_positive</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">above_negative</span><span class="p">)</span>
+
+    <span class="n">integral</span> <span class="o">=</span> <span class="p">(</span><span class="n">inside_count</span> <span class="o">/</span> <span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">y_max</span> <span class="o">-</span> <span class="n">y_min</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">integral</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mc_rej_1</span> <span class="o">=</span> <span class="n">montecarlo_rejection</span><span class="p">(</span><span class="n">f_1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;I_1 von Neumann rejection result = &#39;</span><span class="p">,</span> <span class="n">mc_rej_1</span><span class="p">)</span>
+
+<span class="n">exact_rej_1</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">mc_error_rej_1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mc_rej_1</span> <span class="o">-</span> <span class="n">exact_rej_1</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;error  = &#39;</span><span class="p">,</span> <span class="n">mc_error_rej_1</span><span class="p">)</span>
+
+<span class="n">mc_rej_2</span> <span class="o">=</span> <span class="n">montecarlo_rejection</span><span class="p">(</span><span class="n">f_2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;I_2 von Neumann rejection result = &#39;</span><span class="p">,</span> <span class="n">mc_rej_2</span><span class="p">)</span>
+
+<span class="n">exact_rej_2</span> <span class="o">=</span> <span class="mf">2.96756</span>
+<span class="n">mc_error_rej_2</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mc_rej_2</span> <span class="o">-</span> <span class="n">exact_rej_2</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;error  = &#39;</span><span class="p">,</span> <span class="n">mc_error_rej_2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+I_1 von Neumann rejection result =  0.04146902302738527
+error  =  0.04146902302738527
+I_2 von Neumann rejection result =  3.0008493027089704
+error  =  0.033289302708970236
+</pre></div></div>
+</div>
+</section>
+<section id="Problem-3">
+<h3>Problem 3<a class="headerlink" href="#Problem-3" title="Link to this heading">¶</a></h3>
+<p>Problem 5.12 on page 181 in Newman’s book. Solve points b) and c); you do not need to derive the expression in a).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Part b</span>
+
+<span class="c1"># I used Simpson&#39;s rule for this problem</span>
+
+<span class="c1"># Since this decays exponentially, b does not have to be particularly large</span>
+
+<span class="n">k_b</span> <span class="o">=</span> <span class="mf">1.381e-23</span>
+<span class="n">h_bar</span> <span class="o">=</span> <span class="mf">1.055e-34</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mf">2.998e8</span>
+<span class="n">T</span> <span class="o">=</span> <span class="mi">300</span>  <span class="c1"># some random temp</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">101</span>
+<span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+
+<span class="c1"># weights</span>
+<span class="n">wend</span> <span class="o">=</span> <span class="n">h</span> <span class="o">/</span> <span class="mf">3.0</span>
+<span class="n">weven</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="n">h</span> <span class="o">/</span> <span class="mf">3.0</span>
+<span class="n">wodd</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">h</span> <span class="o">/</span> <span class="mf">3.0</span>
+
+<span class="n">y_W</span> <span class="o">=</span> <span class="p">((</span><span class="n">k_b</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">T</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">c</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">h_bar</span><span class="o">**</span><span class="mi">3</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># avoid error with dividing by zero</span>
+<span class="n">y_W</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+<span class="n">sim_W_int</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_W</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">y_W</span><span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">wend</span>
+<span class="n">sim_W_int</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_W</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">N</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">weven</span>
+<span class="n">sim_W_int</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_W</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="n">wodd</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;W Simpson result = &#39;</span><span class="p">,</span> <span class="n">sim_W_int</span><span class="p">)</span>
+
+<span class="c1"># exact</span>
+<span class="n">exact_W</span> <span class="o">=</span> <span class="p">(</span><span class="n">k_b</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">T</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">c</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">h_bar</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span> <span class="o">/</span> <span class="mi">15</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;W exact result = &#39;</span><span class="p">,</span> <span class="n">exact_W</span><span class="p">)</span>
+
+<span class="n">sim_W_error</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">sim_W_int</span> <span class="o">-</span> <span class="n">exact_W</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;W error = &#39;</span><span class="p">,</span> <span class="n">sim_W_error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+W Simpson result =  459.2585498058471
+W exact result =  459.18489380629364
+W error =  0.07365599955346624
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/var/folders/x8/8mm05yln7q3249x7lbbtzj5w0000gn/T/ipykernel_34791/2740840340.py:21: RuntimeWarning: invalid value encountered in divide
+  y_W = ((k_b**4 * T**4) / (4 * (np.pi**2) * c**2 * h_bar**3)) * (x**3) / (np.exp(x) - 1)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Part b</span>
+
+<span class="n">simp_W</span> <span class="o">=</span> <span class="mf">459.2585498058471</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="n">simp_W</span> <span class="o">/</span> <span class="p">(</span><span class="n">T</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The Stefan-Boltzmann constant is approximately&#39;</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="s1">&#39;W * m^(-2) * K^(-4)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The Stefan-Boltzmann constant is approximately 5.669858639578359e-08 W * m^(-2) * K^(-4)
+</pre></div></div>
+</div>
+</section>
+<section id="Problem-4">
+<h3>Problem 4<a class="headerlink" href="#Problem-4" title="Link to this heading">¶</a></h3>
+<p>Sphinx is an excellent tool to document code. Although it is not strictly required that you document your code using Sphinx, you are encouraged to <a class="reference external" href="http://www.sphinx-doc.org/en/1.5/tutorial.html">read this tutorial on Sphinx</a> and give it a try.</p>
+</section>
+<section id="Problem-5">
+<h3>Problem 5<a class="headerlink" href="#Problem-5" title="Link to this heading">¶</a></h3>
+<p>Discuss a possible midterm project with 2-3 other classmates. If you can form a group of 3-4 people working on a topic, email the Instructor and TA with a brief (1-2 line) description of the proposed project, and the names of the students who will be working on it.</p>
+<p>Group: Lauren Illa, Amari Butler, Amelyn Phang, Serena Bragadini (may change)</p>
+<p>Potential project: We discussed using discrete Fourier transforms to analyze spectroscopical data or digital signals, but we have not decided on a project.</p>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ms-141-lab-3</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Lab 3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Lauren-Illa">Lauren Illa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Due-by-Friday-April-24-at-11-am.-Submit-on-Canvas-as-instructed-by-the-TA.">Due by Friday April 24 at 11 am. Submit on Canvas as instructed by the TA.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Collaboration-is-allowed-but-each-student-submits-their-own-solution.">Collaboration is allowed but each student submits their own solution.</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome Lauren's documentation for Lab 3!</a></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2026, Lauren Illa.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/lauren-illa-lab-3-ms-141.ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
